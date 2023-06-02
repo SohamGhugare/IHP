@@ -1,4 +1,5 @@
 import { Button, Typography, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const handleSubmit = (e) => {
@@ -52,6 +53,9 @@ const Login = () => {
         >
           Login
         </button>
+        <Link to="/patient/register" className="mb-4">
+          <text >Don't have an account Click Here!</text>
+        </Link>
       </form>
     </div>
 

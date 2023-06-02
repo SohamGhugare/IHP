@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Typography, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
   const handleSubmit = (e) => {
@@ -82,6 +83,9 @@ const Signup = () => {
       >
         Register
       </button>
+      <Link to="/patient/login" className="mb-4">
+          <text >Already have an account Click Here!</text>
+        </Link>
     </form>
   </div>
     
