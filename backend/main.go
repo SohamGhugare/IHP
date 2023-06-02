@@ -18,15 +18,18 @@ func main() {
 
 	cid := ipfs.StoreFile("dummy/in/test.png")
 	log.Println("CID:", cid)
+
+	// Driver codef for fetching files
 	// file, err := ipfs.GetStoredFile(cid)
 	// if err != nil {
 	// 	log.Fatalf("error while fetching file: %v", err.Error())
 	// }
 	// log.Printf("Fetched file: %v", file.Name())
 
-	key := "0123456789ABCDEF" // 16-byte key for AES-128
+	// Driver code for encryption
+	key := "0123456789ABCDEF"
 
-	// Encrypt the plaintext
+	//  Encrypt the CID
 	encryptedText, err := utility.EncryptString(key, cid)
 	if err != nil {
 		log.Fatalln("Encryption error:", err)
