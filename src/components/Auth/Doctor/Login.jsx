@@ -14,7 +14,7 @@ const Login = () => {
 
         <div className="mb-4">
           <label htmlFor="fullName" className="block mb-2">
-            IHP ID Number:
+            License Number:
           </label>
           <input
             type="number"
@@ -26,26 +26,16 @@ const Login = () => {
 
         <div className="mb-4">
           <label htmlFor="phoneNumber" className="block mb-2">
-            Phone Number:
+            Email
           </label>
           <input
-            type="tel"
+            type="email"
             id="phoneNumber"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-md"
             required
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="fullName" className="block mb-2">
-            Aadhaar Number
-          </label>
-          <input
-            type="text"
-            id="fullName"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-md"
-            required
-          />
-        </div>
+        
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded-xl mx-auto w-full"
