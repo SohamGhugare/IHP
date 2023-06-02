@@ -5,7 +5,7 @@ import (
 
 	"github.com/SohamGhugare/IHP/initializers"
 	"github.com/SohamGhugare/IHP/ipfs"
-	"github.com/gin-gonic/gin"
+	"github.com/SohamGhugare/IHP/utility"
 )
 
 func init() {
@@ -17,13 +17,34 @@ func init() {
 func main() {
 
 	cid := ipfs.StoreFile("dummy/in/test.png")
-	file, err := ipfs.GetStoredFile(cid)
+	log.Println("CID:", cid)
+	// file, err := ipfs.GetStoredFile(cid)
+	// if err != nil {
+	// 	log.Fatalf("error while fetching file: %v", err.Error())
+	// }
+	// log.Printf("Fetched file: %v", file.Name())
+
+	key := "0123456789ABCDEF" // 16-byte key for AES-128
+
+	// Encrypt the plaintext
+	encryptedText, err := utility.EncryptString(key, cid)
 	if err != nil {
-		log.Fatalf("error while fetching file: %v", err.Error())
+		log.Fatalln("Encryption error:", err)
+		return
 	}
-	log.Printf("Fetched file: %v", file.Name())
 
-	r := gin.Default()
+	log.Println("Encrypted:", encryptedText)
 
-	r.Run()
+	// Decrypt the encrypted text
+	decryptedText, err := utility.DecryptString(key, encryptedText)
+	if err != nil {
+		log.Fatalln("Decryption error:", err)
+		return
+	}
+
+	log.Println("Decrypted:", decryptedText)
+
+	// r := gin.Default()
+
+	// r.Run()
 }
