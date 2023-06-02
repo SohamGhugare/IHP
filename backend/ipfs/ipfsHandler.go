@@ -13,7 +13,7 @@ type User struct {
 	Name string `json:"name"`
 }
 
-func StoreFile(path string) {
+func StoreFile(path string) string {
 	file, err := os.Open(path)
 	if err != nil {
 		log.Fatalf("error while storing file: %v", err.Error())
@@ -25,5 +25,5 @@ func StoreFile(path string) {
 		fmt.Fprintf(os.Stderr, "error: %s", err)
 		os.Exit(1)
 	}
-	fmt.Printf("Added file with CID %s\n", cid)
+	return cid
 }
