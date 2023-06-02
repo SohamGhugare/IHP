@@ -2,6 +2,7 @@ package ipfs
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -26,4 +27,25 @@ func StoreFile(path string) string {
 		os.Exit(1)
 	}
 	return cid
+}
+
+func GetStoredFile(cid string) (*os.File, error) {
+	tmpFile, err := ioutil.TempFile("dummy/", "ipfs-*.png")
+	if err != nil {
+		return nil, err
+	}
+	defer tmpFile.Close()
+
+	err = initializers.Sh.Get(cid, tmpFile.Name())
+	if err != nil {
+		return nil, err
+	}
+
+	// Open the temporary file for reading
+	file, err := os.Open(tmpFile.Name())
+	if err != nil {
+		return nil, err
+	}
+
+	return file, nil
 }
