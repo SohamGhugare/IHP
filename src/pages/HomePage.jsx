@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from '../components/Auth/Login';
+import Login from '../components/Auth/Patient/Login';
 import Roles from '../components/Auth/Roles';
 import Welcome from '../components/common/Welcome';
 import List from '@mui/material/List';
