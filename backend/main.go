@@ -32,6 +32,8 @@ func main() {
 	r.POST("/api/v1/doctors/login", controllers.LoginDoctor)
 
 	r.POST("/api/v1/users/signup", controllers.CreateUser)
+	r.POST("/api/v1/users/login", controllers.GetUser)
+	r.POST("/api/v1/users/add-report", controllers.AddRecord)
 
 	r.POST("/api/v1/reports/upload", controllers.StoreFile)
 	r.POST("/api/v1/reports/download", controllers.GetFile)

@@ -28,3 +28,21 @@ func CreateUser(c *gin.Context) {
 		"transaction_hash": hash,
 	})
 }
+
+func GetUser(c *gin.Context) {
+	var body struct {
+		IHP int
+	}
+	err := c.Bind(&body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "invalid ihp",
+		})
+		return
+	}
+	uri, name := contract.GetIHPProfile(body.IHP)
+	c.JSON(http.StatusFound, gin.H{
+		"name": name,
+		"uri":  uri,
+	})
+}
