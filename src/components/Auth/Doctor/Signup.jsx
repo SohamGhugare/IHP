@@ -58,6 +58,17 @@ const Signup = () => {
             required
           />
         </div>
+        <div className="mb-4">
+          <label htmlFor="password" className="block mb-2">
+            Set Password:
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-md"
+            required
+          />
+        </div>
 
 
         <button

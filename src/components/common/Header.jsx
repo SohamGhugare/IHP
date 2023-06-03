@@ -15,7 +15,7 @@ const Header = () => {
     <Avatar src="/broken-image.jpg" />
 
     {/* User name */}
-    <p className="ml-2 text-2xl text-black">John Doe</p>
+    <p className="ml-2 text-2xl text-black">Rahul Khatri</p>
   </div>
 </header>
   )
