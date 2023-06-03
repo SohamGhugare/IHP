@@ -74,7 +74,8 @@ func CreateIHPProfile(cid string, name string) (int, common.Hash) {
 	return ihpID, tx.Hash()
 }
 
-func GetIHPProfile(ihp int) {
+func GetIHPProfile(ihp int) (string, string) {
+
 	callOpts := &bind.CallOpts{
 		From: common.HexToAddress(os.Getenv("DOCTOR_ADDRESS")),
 	}
@@ -82,7 +83,7 @@ func GetIHPProfile(ihp int) {
 	if err != nil {
 		log.Fatal("error fetching profile: ", err)
 	}
-	log.Println("fetched string:", uri, name)
+	return uri, name
 }
 
 func AddRecord(ihp int, cid string) common.Hash {
