@@ -2,6 +2,7 @@ package contract
 
 import (
 	"log"
+	"os"
 
 	"github.com/SohamGhugare/IHP/blockchain/api"
 	"github.com/SohamGhugare/IHP/utility"
@@ -19,7 +20,7 @@ func ConnectContract() {
 		log.Fatal("error creating client:", err)
 	}
 
-	pvtKey := "ca9cb05e427e09cec2f5ba77b9d299c069cd697d4b655432c4aad51a6a05601d"
+	pvtKey := os.Getenv("PVT_KEY")
 	auth := utility.GetAccountAuth(client, pvtKey)
 	deployedContractAddr, tx, instance, err := api.DeployApi(auth, client)
 	if err != nil {
