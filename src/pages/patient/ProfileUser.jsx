@@ -4,6 +4,7 @@ import Banner from '../../components/Patient/Banner'
 import TabPanel from '../../components/Patient/TabPanel'
 import Searchbar from '../../components/Patient/Searchbar'
 import TextHead from '../../components/Patient/TextHead'
+import Footer from '../../components/Patient/Footer'
 
 const ProfileUser = () => {
   return (
@@ -24,6 +25,7 @@ const ProfileUser = () => {
       <div className="mt-10">
         <TabPanel/>
       </div> */}
+      <Footer/>
     </div>
   )
 }
