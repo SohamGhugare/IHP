@@ -9,6 +9,9 @@ func init() {
 
 	initializers.LoadEnvVars()
 	contract.ConnectContract()
+	contract.GetConnection()
+	contract.CreateProfile()
+	contract.GetProfile()
 	// initializers.ConnectIPFS()
 }
 
