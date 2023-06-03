@@ -76,11 +76,25 @@ func CreateIHPProfile(cid string, name string) (int, common.Hash) {
 
 func GetIHPProfile(ihp int) (string, string) {
 
+	pvt := os.Getenv("PVT_KEY")
+
+	pvtKey, err := crypto.HexToECDSA(pvt)
+	if err != nil {
+		log.Fatal("failed to convert pvt key: ", err)
+	}
+	auth, err := bind.NewKeyedTransactorWithChainID(pvtKey, big.NewInt(11155111))
+
+	if err != nil {
+		log.Fatal("failed to create transactor: ", err)
+	}
+
 	callOpts := &bind.CallOpts{
-		From: common.HexToAddress(os.Getenv("DOCTOR_ADDRESS")),
+		From:    auth.From,
+		Context: auth.Context,
 	}
 	uri, name, err := ihpConn.GetProfile(callOpts, big.NewInt(int64(ihp)))
 	if err != nil {
+
 		log.Fatal("error fetching profile: ", err)
 	}
 	return uri, name
@@ -94,6 +108,7 @@ func AddRecord(ihp int, cid string) common.Hash {
 		log.Fatal("failed to convert pvt key: ", err)
 	}
 	auth, err := bind.NewKeyedTransactorWithChainID(pvtKey, big.NewInt(11155111))
+
 	if err != nil {
 		log.Fatal("failed to create transactor: ", err)
 	}
