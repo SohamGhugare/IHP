@@ -7,7 +7,7 @@ contract DoctorContract {
         string name;
         uint256 phone;
         string email;
-        uint256 pin;
+        uint256 pin; // needs encryption
 
     }
     

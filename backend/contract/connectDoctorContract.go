@@ -47,7 +47,7 @@ func GetDoctorConnection() {
 
 }
 
-func CreateDoctorProfile(license int, name string, email string) {
+func CreateDoctorProfile(license int, name string, email string) common.Hash {
 
 	pin := rand.Intn(99999) + 10000
 	pinInt := big.NewInt(int64(pin))
@@ -68,7 +68,7 @@ func CreateDoctorProfile(license int, name string, email string) {
 	if err != nil {
 		log.Fatal("error storing: ", err)
 	}
-	log.Println("successfully created doctor profile:", tx)
+	return tx.Hash()
 }
 
 func GetDoctorProfile(license int) {

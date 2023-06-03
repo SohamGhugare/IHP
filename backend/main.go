@@ -2,22 +2,26 @@ package main
 
 import (
 	"github.com/SohamGhugare/IHP/contract"
+	"github.com/SohamGhugare/IHP/controllers"
 	"github.com/SohamGhugare/IHP/initializers"
+	"github.com/gin-gonic/gin"
 )
 
 func init() {
 
 	initializers.LoadEnvVars()
 
+	// IHP Contract Code
 	// contract.ConnectIHPContract()
 	// contract.GetConnection()
 	// contract.CreateProfile()
 	// contract.GetProfile()
 
+	// Doctor Contract Code
 	contract.ConnectDoctorContract()
 	contract.GetDoctorConnection()
-	contract.CreateDoctorProfile(123456, "Doctor123", "doctor@test.com")
-	contract.GetDoctorProfile(123456)
+	// contract.CreateDoctorProfile(123456, "Doctor123", "doctor@test.com")
+	// contract.GetDoctorProfile(123456)
 
 	// initializers.ConnectIPFS()
 }
@@ -55,7 +59,9 @@ func main() {
 
 	// log.Println("Decrypted:", decryptedText)
 
-	// r := gin.Default()
+	r := gin.Default()
 
-	// r.Run()
+	r.POST("/api/v1/doctors/signup", controllers.CreateDoctor)
+
+	r.Run()
 }
