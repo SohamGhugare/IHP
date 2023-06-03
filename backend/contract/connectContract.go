@@ -1,32 +1,31 @@
 package contract
 
 import (
-	"context"
-	"fmt"
 	"log"
 
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/SohamGhugare/IHP/blockchain/api"
+	"github.com/SohamGhugare/IHP/utility"
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
 func ConnectContract() {
-	client, err := ethclient.Dial("https://eth-sepolia.g.alchemy.com/v2/f1thP4VKMvnfX9LaGREjrMogP4Vnplo0")
+	// contractAddressHex := os.Getenv("CONTRACT_ADDRESS")
+	// contractABIStr := `[{"constant":false,"inputs":[{"name":"uhpId","type":"uint256"},{"name":"uri","type":"string"}],"name":"storeProfile","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"uhpId","type":"uint256"}],"name":"getProfile","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]`
+
+	// client, err := ethclient.Dial("https://eth-sepolia.g.alchemy.com/v2/f1thP4VKMvnfX9LaGREjrMogP4Vnplo0")
+	client, err := ethclient.Dial("http://127.0.0.1:7545")
+
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("error creating client:", err)
 	}
 
-	// Get the balance of an account
-	account := common.HexToAddress("0x71c7656ec7ab88b098defb751b7401b5f6d8976f")
-	balance, err := client.BalanceAt(context.Background(), account, nil)
+	pvtKey := "ca9cb05e427e09cec2f5ba77b9d299c069cd697d4b655432c4aad51a6a05601d"
+	auth := utility.GetAccountAuth(client, pvtKey)
+	deployedContractAddr, tx, instance, err := api.DeployApi(auth, client)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("error deploying:", err)
 	}
-	fmt.Println("Account balance:", balance) // 25893180161173005034
+	_, _ = tx, instance
+	log.Println("hash: ", deployedContractAddr.Hex())
 
-	// Get the latest known block
-	block, err := client.BlockByNumber(context.Background(), nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Latest block:", block.Number().Uint64())
 }

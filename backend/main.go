@@ -1,23 +1,21 @@
 package main
 
 import (
-	"log"
-
+	"github.com/SohamGhugare/IHP/contract"
 	"github.com/SohamGhugare/IHP/initializers"
-	"github.com/SohamGhugare/IHP/ipfs"
-	"github.com/SohamGhugare/IHP/utility"
 )
 
 func init() {
-	// contract.ConnectContract()
+
 	initializers.LoadEnvVars()
-	initializers.ConnectIPFS()
+	contract.ConnectContract()
+	// initializers.ConnectIPFS()
 }
 
 func main() {
 
-	cid := ipfs.StoreFile("dummy/in/test.png")
-	log.Println("CID:", cid)
+	// cid := ipfs.StoreFile("dummy/in/test.png")
+	// log.Println("CID:", cid)
 
 	// Driver codef for fetching files
 	// file, err := ipfs.GetStoredFile(cid)
@@ -27,25 +25,25 @@ func main() {
 	// log.Printf("Fetched file: %v", file.Name())
 
 	// Driver code for encryption
-	key := "0123456789ABCDEF"
+	// key := "0123456789ABCDEF"
 
-	//  Encrypt the CID
-	encryptedText, err := utility.EncryptString(key, cid)
-	if err != nil {
-		log.Fatalln("Encryption error:", err)
-		return
-	}
+	// //  Encrypt the CID
+	// encryptedText, err := utility.EncryptString(key, cid)
+	// if err != nil {
+	// 	log.Fatalln("Encryption error:", err)
+	// 	return
+	// }
 
-	log.Println("Encrypted:", encryptedText)
+	// log.Println("Encrypted:", encryptedText)
 
-	// Decrypt the encrypted text
-	decryptedText, err := utility.DecryptString(key, encryptedText)
-	if err != nil {
-		log.Fatalln("Decryption error:", err)
-		return
-	}
+	// // Decrypt the encrypted text
+	// decryptedText, err := utility.DecryptString(key, encryptedText)
+	// if err != nil {
+	// 	log.Fatalln("Decryption error:", err)
+	// 	return
+	// }
 
-	log.Println("Decrypted:", decryptedText)
+	// log.Println("Decrypted:", decryptedText)
 
 	// r := gin.Default()
 
