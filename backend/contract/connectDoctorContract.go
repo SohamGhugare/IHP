@@ -47,7 +47,7 @@ func GetDoctorConnection() {
 
 }
 
-func CreateDoctorProfile(license int, name string, email string) common.Hash {
+func CreateDoctorProfile(license int, name string, email string) (int, common.Hash) {
 
 	pin := rand.Intn(99999) + 10000
 	pinInt := big.NewInt(int64(pin))
@@ -68,10 +68,10 @@ func CreateDoctorProfile(license int, name string, email string) common.Hash {
 	if err != nil {
 		log.Fatal("error storing: ", err)
 	}
-	return tx.Hash()
+	return int(pinInt.Int64()), tx.Hash()
 }
 
-func GetDoctorProfile(license int) {
+func GetDoctorProfile(license int) (string, string, int) {
 	callOpts := &bind.CallOpts{
 		From: common.HexToAddress(os.Getenv("DOCTOR_ADDRESS")),
 	}
@@ -79,5 +79,6 @@ func GetDoctorProfile(license int) {
 	if err != nil {
 		log.Fatal("error fetching profile: ", err)
 	}
-	log.Println("fetched details:", name, email, pin)
+	// log.Println("details:", name, email, pin)
+	return name, email, int(pin.Int64())
 }

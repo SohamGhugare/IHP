@@ -12,10 +12,8 @@ func init() {
 	initializers.LoadEnvVars()
 
 	// IHP Contract Code
-	// contract.ConnectIHPContract()
-	// contract.GetConnection()
-	// contract.CreateProfile()
-	// contract.GetProfile()
+	contract.ConnectIHPContract()
+	contract.GetIHPConnection()
 
 	// Doctor Contract Code
 	contract.ConnectDoctorContract()
@@ -23,45 +21,20 @@ func init() {
 	// contract.CreateDoctorProfile(123456, "Doctor123", "doctor@test.com")
 	// contract.GetDoctorProfile(123456)
 
-	// initializers.ConnectIPFS()
+	initializers.ConnectIPFS()
 }
 
 func main() {
 
-	// cid := ipfs.StoreFile("dummy/in/test.png")
-	// log.Println("CID:", cid)
-
-	// Driver codef for fetching files
-	// file, err := ipfs.GetStoredFile(cid)
-	// if err != nil {
-	// 	log.Fatalf("error while fetching file: %v", err.Error())
-	// }
-	// log.Printf("Fetched file: %v", file.Name())
-
-	// Driver code for encryption
-	// key := "0123456789ABCDEF"
-
-	// //  Encrypt the CID
-	// encryptedText, err := utility.EncryptString(key, cid)
-	// if err != nil {
-	// 	log.Fatalln("Encryption error:", err)
-	// 	return
-	// }
-
-	// log.Println("Encrypted:", encryptedText)
-
-	// // Decrypt the encrypted text
-	// decryptedText, err := utility.DecryptString(key, encryptedText)
-	// if err != nil {
-	// 	log.Fatalln("Decryption error:", err)
-	// 	return
-	// }
-
-	// log.Println("Decrypted:", decryptedText)
-
 	r := gin.Default()
 
 	r.POST("/api/v1/doctors/signup", controllers.CreateDoctor)
+	r.POST("/api/v1/doctors/login", controllers.LoginDoctor)
+
+	r.POST("/api/v1/users/signup", controllers.CreateUser)
+
+	r.POST("/api/v1/reports/upload", controllers.StoreFile)
+	r.POST("/api/v1/reports/download", controllers.GetFile)
 
 	r.Run()
 }

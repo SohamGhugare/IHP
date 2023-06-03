@@ -11,6 +11,7 @@ import (
 	"github.com/SohamGhugare/IHP/utility"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
@@ -18,15 +19,13 @@ var ihpDeployedAddr string
 var ihpClient *ethclient.Client
 var ihpConn *ihpApi.Api
 
-var ihpInt *big.Int
-
 func ConnectIHPContract() {
 	// contractAddressHex := os.Getenv("CONTRACT_ADDRESS")
 	// contractABIStr := `[{"constant":false,"inputs":[{"name":"uhpId","type":"uint256"},{"name":"uri","type":"string"}],"name":"storeProfile","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"uhpId","type":"uint256"}],"name":"getProfile","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]`
 
 	// ihpClient, err := ethihpClient.Dial("https://eth-sepolia.g.alchemy.com/v2/f1thP4VKMvnfX9LaGREjrMogP4Vnplo0")
 	var err error
-	ihpClient, err = ethclient.Dial("http://127.0.0.1:7545")
+	ihpClient, err = ethclient.Dial("https://eth-sepolia.g.alchemy.com/v2/f1thP4VKMvnfX9LaGREjrMogP4Vnplo0")
 
 	if err != nil {
 		log.Fatal("error creating ihpClient:", err)
@@ -43,29 +42,45 @@ func ConnectIHPContract() {
 
 }
 
-func GetConnection() {
+func GetIHPConnection() {
 	var err error
-	ihpConn, err = ihpApi.NewApi(common.HexToAddress(ihpDeployedAddr), ihpClient)
+	ihpConn, err = ihpApi.NewApi(common.HexToAddress(os.Getenv("IHP_CONTRACT")), ihpClient)
 	if err != nil {
 		log.Fatal("error while creating api: ", err.Error())
 	}
-	ihpID := rand.Intn(99999999999) + 10000000000
-	ihpInt = big.NewInt(int64(ihpID))
+
 }
 
-func CreateProfile() {
+func CreateIHPProfile(cid string, name string) (int, common.Hash) {
+	ihpID := rand.Intn(99999999999) + 10000000000
+	ihpInt := big.NewInt(int64(ihpID))
+	addr := os.Getenv("DOCTOR_ADDRESS")
+	pvt := os.Getenv("PVT_KEY")
+	log.Println("attempting to store using", addr)
 
-	tx, err := ihpConn.StoreProfile(&bind.TransactOpts{}, ihpInt, "test123")
+	pvtKey, err := crypto.HexToECDSA(pvt)
+	if err != nil {
+		log.Fatal("failed to convert pvt key: ", err)
+	}
+	auth, err := bind.NewKeyedTransactorWithChainID(pvtKey, big.NewInt(11155111))
+	if err != nil {
+		log.Fatal("failed to create transactor: ", err)
+	}
+
+	tx, err := ihpConn.StoreProfile(auth, ihpInt, cid, name)
 	if err != nil {
 		log.Fatal("error storing: ", err)
 	}
-	log.Println("successfully created profile:", tx)
+	return ihpID, tx.Hash()
 }
 
-func GetProfile() {
-	tx, err := ihpConn.GetProfile(&bind.CallOpts{}, ihpInt)
+func GetIHPProfile(ihp int) {
+	callOpts := &bind.CallOpts{
+		From: common.HexToAddress(os.Getenv("DOCTOR_ADDRESS")),
+	}
+	uri, name, err := ihpConn.GetProfile(callOpts, big.NewInt(int64(ihp)))
 	if err != nil {
 		log.Fatal("error fetching profile: ", err)
 	}
-	log.Println("fetched string:", tx)
+	log.Println("fetched string:", uri, name)
 }

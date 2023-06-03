@@ -31,8 +31,8 @@ var (
 
 // ApiMetaData contains all meta data concerning the Api contract.
 var ApiMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"uhpId\",\"type\":\"uint256\"}],\"name\":\"getProfile\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"uhpId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"uri\",\"type\":\"string\"}],\"name\":\"storeProfile\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
-	Bin: "0x608060405234801561001057600080fd5b506103f4806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c8063b2bb8f841461003b578063f08f4f6414610050575b600080fd5b61004e610049366004610153565b610079565b005b61006361005e36600461020e565b610098565b6040516100709190610227565b60405180910390f35b60008281526020819052604090208061009283826102fe565b50505050565b600081815260208190526040902080546060919081906100b790610275565b80601f01602080910402602001604051908101604052809291908181526020018280546100e390610275565b80156101305780601f1061010557610100808354040283529160200191610130565b820191906000526020600020905b81548152906001019060200180831161011357829003601f168201915b5050505050915050919050565b634e487b7160e01b600052604160045260246000fd5b6000806040838503121561016657600080fd5b82359150602083013567ffffffffffffffff8082111561018557600080fd5b818501915085601f83011261019957600080fd5b8135818111156101ab576101ab61013d565b604051601f8201601f19908116603f011681019083821181831017156101d3576101d361013d565b816040528281528860208487010111156101ec57600080fd5b8260208601602083013760006020848301015280955050505050509250929050565b60006020828403121561022057600080fd5b5035919050565b600060208083528351808285015260005b8181101561025457858101830151858201604001528201610238565b506000604082860101526040601f19601f8301168501019250505092915050565b600181811c9082168061028957607f821691505b6020821081036102a957634e487b7160e01b600052602260045260246000fd5b50919050565b601f8211156102f957600081815260208120601f850160051c810160208610156102d65750805b601f850160051c820191505b818110156102f5578281556001016102e2565b5050505b505050565b815167ffffffffffffffff8111156103185761031861013d565b61032c816103268454610275565b846102af565b602080601f83116001811461036157600084156103495750858301515b600019600386901b1c1916600185901b1785556102f5565b600085815260208120601f198616915b8281101561039057888601518255948401946001909101908401610371565b50858210156103ae5787850151600019600388901b60f8161c191681555b5050505050600190811b0190555056fea2646970667358221220c65c98e8505a236bf794147632f7ac1866a6b064f8567cbea15fdefc8ffa257f64736f6c63430008130033",
+	ABI: "[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"uhpId\",\"type\":\"uint256\"}],\"name\":\"getProfile\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"uhpId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"uri\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"storeProfile\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	Bin: "0x608060405234801561001057600080fd5b50610502806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80637a38ac351461003b578063f08f4f6414610050575b600080fd5b61004e610049366004610289565b61007a565b005b61006361005e3660046102f6565b6100a9565b604051610071929190610355565b60405180910390f35b600083815260208190526040902080610093848261040c565b50600181016100a2838261040c565b5050505050565b6000818152602081905260409020805460609182918190600182019082906100d090610383565b80601f01602080910402602001604051908101604052809291908181526020018280546100fc90610383565b80156101495780601f1061011e57610100808354040283529160200191610149565b820191906000526020600020905b81548152906001019060200180831161012c57829003601f168201915b5050505050915080805461015c90610383565b80601f016020809104026020016040519081016040528092919081815260200182805461018890610383565b80156101d55780601f106101aa576101008083540402835291602001916101d5565b820191906000526020600020905b8154815290600101906020018083116101b857829003601f168201915b505050505090509250925050915091565b634e487b7160e01b600052604160045260246000fd5b600082601f83011261020d57600080fd5b813567ffffffffffffffff80821115610228576102286101e6565b604051601f8301601f19908116603f01168101908282118183101715610250576102506101e6565b8160405283815286602085880101111561026957600080fd5b836020870160208301376000602085830101528094505050505092915050565b60008060006060848603121561029e57600080fd5b83359250602084013567ffffffffffffffff808211156102bd57600080fd5b6102c9878388016101fc565b935060408601359150808211156102df57600080fd5b506102ec868287016101fc565b9150509250925092565b60006020828403121561030857600080fd5b5035919050565b6000815180845260005b8181101561033557602081850181015186830182015201610319565b506000602082860101526020601f19601f83011685010191505092915050565b604081526000610368604083018561030f565b828103602084015261037a818561030f565b95945050505050565b600181811c9082168061039757607f821691505b6020821081036103b757634e487b7160e01b600052602260045260246000fd5b50919050565b601f82111561040757600081815260208120601f850160051c810160208610156103e45750805b601f850160051c820191505b81811015610403578281556001016103f0565b5050505b505050565b815167ffffffffffffffff811115610426576104266101e6565b61043a816104348454610383565b846103bd565b602080601f83116001811461046f57600084156104575750858301515b600019600386901b1c1916600185901b178555610403565b600085815260208120601f198616915b8281101561049e5788860151825594840194600190910190840161047f565b50858210156104bc5787850151600019600388901b60f8161c191681555b5050505050600190811b0190555056fea2646970667358221220e24e861058d259b9555da94abd5501c74267ee24f66e3bec0f0cbe10499f500264736f6c63430008130033",
 }
 
 // ApiABI is the input ABI used to generate the binding from.
@@ -204,52 +204,53 @@ func (_Api *ApiTransactorRaw) Transact(opts *bind.TransactOpts, method string, p
 
 // GetProfile is a free data retrieval call binding the contract method 0xf08f4f64.
 //
-// Solidity: function getProfile(uint256 uhpId) view returns(string)
-func (_Api *ApiCaller) GetProfile(opts *bind.CallOpts, uhpId *big.Int) (string, error) {
+// Solidity: function getProfile(uint256 uhpId) view returns(string, string)
+func (_Api *ApiCaller) GetProfile(opts *bind.CallOpts, uhpId *big.Int) (string, string, error) {
 	var out []interface{}
 	err := _Api.contract.Call(opts, &out, "getProfile", uhpId)
 
 	if err != nil {
-		return *new(string), err
+		return *new(string), *new(string), err
 	}
 
 	out0 := *abi.ConvertType(out[0], new(string)).(*string)
+	out1 := *abi.ConvertType(out[1], new(string)).(*string)
 
-	return out0, err
+	return out0, out1, err
 
 }
 
 // GetProfile is a free data retrieval call binding the contract method 0xf08f4f64.
 //
-// Solidity: function getProfile(uint256 uhpId) view returns(string)
-func (_Api *ApiSession) GetProfile(uhpId *big.Int) (string, error) {
+// Solidity: function getProfile(uint256 uhpId) view returns(string, string)
+func (_Api *ApiSession) GetProfile(uhpId *big.Int) (string, string, error) {
 	return _Api.Contract.GetProfile(&_Api.CallOpts, uhpId)
 }
 
 // GetProfile is a free data retrieval call binding the contract method 0xf08f4f64.
 //
-// Solidity: function getProfile(uint256 uhpId) view returns(string)
-func (_Api *ApiCallerSession) GetProfile(uhpId *big.Int) (string, error) {
+// Solidity: function getProfile(uint256 uhpId) view returns(string, string)
+func (_Api *ApiCallerSession) GetProfile(uhpId *big.Int) (string, string, error) {
 	return _Api.Contract.GetProfile(&_Api.CallOpts, uhpId)
 }
 
-// StoreProfile is a paid mutator transaction binding the contract method 0xb2bb8f84.
+// StoreProfile is a paid mutator transaction binding the contract method 0x7a38ac35.
 //
-// Solidity: function storeProfile(uint256 uhpId, string uri) returns()
-func (_Api *ApiTransactor) StoreProfile(opts *bind.TransactOpts, uhpId *big.Int, uri string) (*types.Transaction, error) {
-	return _Api.contract.Transact(opts, "storeProfile", uhpId, uri)
+// Solidity: function storeProfile(uint256 uhpId, string uri, string name) returns()
+func (_Api *ApiTransactor) StoreProfile(opts *bind.TransactOpts, uhpId *big.Int, uri string, name string) (*types.Transaction, error) {
+	return _Api.contract.Transact(opts, "storeProfile", uhpId, uri, name)
 }
 
-// StoreProfile is a paid mutator transaction binding the contract method 0xb2bb8f84.
+// StoreProfile is a paid mutator transaction binding the contract method 0x7a38ac35.
 //
-// Solidity: function storeProfile(uint256 uhpId, string uri) returns()
-func (_Api *ApiSession) StoreProfile(uhpId *big.Int, uri string) (*types.Transaction, error) {
-	return _Api.Contract.StoreProfile(&_Api.TransactOpts, uhpId, uri)
+// Solidity: function storeProfile(uint256 uhpId, string uri, string name) returns()
+func (_Api *ApiSession) StoreProfile(uhpId *big.Int, uri string, name string) (*types.Transaction, error) {
+	return _Api.Contract.StoreProfile(&_Api.TransactOpts, uhpId, uri, name)
 }
 
-// StoreProfile is a paid mutator transaction binding the contract method 0xb2bb8f84.
+// StoreProfile is a paid mutator transaction binding the contract method 0x7a38ac35.
 //
-// Solidity: function storeProfile(uint256 uhpId, string uri) returns()
-func (_Api *ApiTransactorSession) StoreProfile(uhpId *big.Int, uri string) (*types.Transaction, error) {
-	return _Api.Contract.StoreProfile(&_Api.TransactOpts, uhpId, uri)
+// Solidity: function storeProfile(uint256 uhpId, string uri, string name) returns()
+func (_Api *ApiTransactorSession) StoreProfile(uhpId *big.Int, uri string, name string) (*types.Transaction, error) {
+	return _Api.Contract.StoreProfile(&_Api.TransactOpts, uhpId, uri, name)
 }
