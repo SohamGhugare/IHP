@@ -6,7 +6,8 @@ import (
 	"math/rand"
 	"os"
 
-	"github.com/SohamGhugare/IHP/blockchain/api"
+	ihpApi "github.com/SohamGhugare/IHP/blockchain/ihpApi"
+
 	"github.com/SohamGhugare/IHP/utility"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
@@ -15,11 +16,11 @@ import (
 
 var deployedAddr string
 var client *ethclient.Client
-var conn *api.Api
+var conn *ihpApi.Api
 
 var ihpInt *big.Int
 
-func ConnectContract() {
+func ConnectIHPContract() {
 	// contractAddressHex := os.Getenv("CONTRACT_ADDRESS")
 	// contractABIStr := `[{"constant":false,"inputs":[{"name":"uhpId","type":"uint256"},{"name":"uri","type":"string"}],"name":"storeProfile","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"uhpId","type":"uint256"}],"name":"getProfile","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]`
 
@@ -33,7 +34,7 @@ func ConnectContract() {
 
 	pvtKey := os.Getenv("PVT_KEY")
 	auth := utility.GetAccountAuth(client, pvtKey)
-	deployedContractAddr, tx, instance, err := api.DeployApi(auth, client)
+	deployedContractAddr, tx, instance, err := ihpApi.DeployApi(auth, client)
 	if err != nil {
 		log.Fatal("error deploying:", err)
 	}
@@ -44,7 +45,7 @@ func ConnectContract() {
 
 func GetConnection() {
 	var err error
-	conn, err = api.NewApi(common.HexToAddress(deployedAddr), client)
+	conn, err = ihpApi.NewApi(common.HexToAddress(deployedAddr), client)
 	if err != nil {
 		log.Fatal("error while creating api: ", err.Error())
 	}

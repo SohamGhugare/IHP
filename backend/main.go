@@ -8,7 +8,7 @@ import (
 func init() {
 
 	initializers.LoadEnvVars()
-	contract.ConnectContract()
+	contract.ConnectIHPContract()
 	contract.GetConnection()
 	contract.CreateProfile()
 	contract.GetProfile()
