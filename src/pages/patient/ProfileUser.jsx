@@ -14,7 +14,7 @@ const ProfileUser = () => {
       <div className="mt-10">
         <Searchbar />
       </div>
-      <div className="mt-10">
+      <div className="my-10">
         <TextHead />
       </div>
 
