@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Emergency Location Website</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+  <style>
+     body {
+        background: linear-gradient(112.36deg, #2DA0F6 3.41%, #0042AB 97.64%);
+     }
+    .card {
+      margin-top: 60px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      height: 430px;
+      width: 350px;
+    }
+
+    #map {
+      height: 350px;
+      width: 350px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      position: relative;
+      border-radius: 6px;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    }
+
+    button {
+      margin-top: 40px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      color: white;
+      background-color: rgb(143, 12, 38);
+      padding: 9px 13px 9px 13px;
+      font-family: sans-serif;
+      font-size: 20px;
+      border-radius: 20px;
+      border: none;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    }
+
+    #linkContainer {
+      text-align: center;
+      padding: 0px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div id="map"></div>
+  <form id="emergencyForm">
+    <button type="submit">Send Emergency Location</button>
+  </form>
+</div>
+
+<div id="linkContainer"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+<script>
+  const map = L.map('map').setView([51.505, -0.09], 13);
+
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
+  let marker, circle, zoomed;
+
+  document.getElementById('emergencyForm').addEventListener('submit', handleEmergencyLocation);
+
+  function handleEmergencyLocation(event) {
+    event.preventDefault();
+
+    if (!navigator.geolocation) {
+      alert('Geolocation is not supported by your browser');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+
+  function success(pos) {
+    const lat = pos.coords.latitude;
+    const lng = pos.coords.longitude;
+    const accuracy = pos.coords.accuracy;
+
+    if (marker) {
+      map.removeLayer(marker);
+      map.removeLayer(circle);
+    }
+
+    marker = L.marker([lat, lng]).addTo(map);
+    circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+    if (!zoomed) {
+      zoomed = map.fitBounds(circle.getBounds());
+    }
+
+    // Generate the shareable link
+    const shareableLink = generateShareableLink(lat, lng);
+    displayShareableLink(shareableLink);
+  }
+
+  function error(err) {
+    if (err.code === 1) {
+      alert("Please allow geolocation access");
+    } else {
+      alert("Cannot get current location");
+    }
+  }
+
+  function generateShareableLink(lat, lng) {
+  // Generate a shareable Google Maps link with the latitude and longitude coordinates
+  const link = `https://www.google.com/maps?q=${lat},${lng}`;
+  return link;
+}
+
+  function displayShareableLink(link) {
+    // Display the shareable link to the user
+    const linkContainer = document.getElementById('linkContainer');
+    linkContainer.innerHTML = `<p>Shareable Link: <a href="${link}" target="_blank">${link}</a></p>`;
+  }
+</script>
+</body>
+</html>
