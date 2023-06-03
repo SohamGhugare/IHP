@@ -84,3 +84,22 @@ func GetIHPProfile(ihp int) {
 	}
 	log.Println("fetched string:", uri, name)
 }
+
+func AddRecord(ihp int, cid string) common.Hash {
+	pvt := os.Getenv("PVT_KEY")
+
+	pvtKey, err := crypto.HexToECDSA(pvt)
+	if err != nil {
+		log.Fatal("failed to convert pvt key: ", err)
+	}
+	auth, err := bind.NewKeyedTransactorWithChainID(pvtKey, big.NewInt(11155111))
+	if err != nil {
+		log.Fatal("failed to create transactor: ", err)
+	}
+
+	tx, err := ihpConn.AddRecord(auth, big.NewInt(int64(ihp)), cid)
+	if err != nil {
+		log.Fatal("error adding record: ", err)
+	}
+	return tx.Hash()
+}
