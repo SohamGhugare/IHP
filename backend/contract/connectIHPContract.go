@@ -14,9 +14,9 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
-var deployedAddr string
-var client *ethclient.Client
-var conn *ihpApi.Api
+var ihpDeployedAddr string
+var ihpClient *ethclient.Client
+var ihpConn *ihpApi.Api
 
 var ihpInt *big.Int
 
@@ -24,28 +24,28 @@ func ConnectIHPContract() {
 	// contractAddressHex := os.Getenv("CONTRACT_ADDRESS")
 	// contractABIStr := `[{"constant":false,"inputs":[{"name":"uhpId","type":"uint256"},{"name":"uri","type":"string"}],"name":"storeProfile","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"uhpId","type":"uint256"}],"name":"getProfile","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]`
 
-	// client, err := ethclient.Dial("https://eth-sepolia.g.alchemy.com/v2/f1thP4VKMvnfX9LaGREjrMogP4Vnplo0")
+	// ihpClient, err := ethihpClient.Dial("https://eth-sepolia.g.alchemy.com/v2/f1thP4VKMvnfX9LaGREjrMogP4Vnplo0")
 	var err error
-	client, err = ethclient.Dial("http://127.0.0.1:7545")
+	ihpClient, err = ethclient.Dial("http://127.0.0.1:7545")
 
 	if err != nil {
-		log.Fatal("error creating client:", err)
+		log.Fatal("error creating ihpClient:", err)
 	}
 
 	pvtKey := os.Getenv("PVT_KEY")
-	auth := utility.GetAccountAuth(client, pvtKey)
-	deployedContractAddr, tx, instance, err := ihpApi.DeployApi(auth, client)
+	auth := utility.GetAccountAuth(ihpClient, pvtKey)
+	deployedContractAddr, tx, instance, err := ihpApi.DeployApi(auth, ihpClient)
 	if err != nil {
 		log.Fatal("error deploying:", err)
 	}
 	_, _ = tx, instance
-	deployedAddr = deployedContractAddr.Hex()
+	ihpDeployedAddr = deployedContractAddr.Hex()
 
 }
 
 func GetConnection() {
 	var err error
-	conn, err = ihpApi.NewApi(common.HexToAddress(deployedAddr), client)
+	ihpConn, err = ihpApi.NewApi(common.HexToAddress(ihpDeployedAddr), ihpClient)
 	if err != nil {
 		log.Fatal("error while creating api: ", err.Error())
 	}
@@ -55,7 +55,7 @@ func GetConnection() {
 
 func CreateProfile() {
 
-	tx, err := conn.StoreProfile(&bind.TransactOpts{}, ihpInt, "test123")
+	tx, err := ihpConn.StoreProfile(&bind.TransactOpts{}, ihpInt, "test123")
 	if err != nil {
 		log.Fatal("error storing: ", err)
 	}
@@ -63,7 +63,7 @@ func CreateProfile() {
 }
 
 func GetProfile() {
-	tx, err := conn.GetProfile(&bind.CallOpts{}, ihpInt)
+	tx, err := ihpConn.GetProfile(&bind.CallOpts{}, ihpInt)
 	if err != nil {
 		log.Fatal("error fetching profile: ", err)
 	}

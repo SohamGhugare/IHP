@@ -8,10 +8,17 @@ import (
 func init() {
 
 	initializers.LoadEnvVars()
-	contract.ConnectIHPContract()
-	contract.GetConnection()
-	contract.CreateProfile()
-	contract.GetProfile()
+
+	// contract.ConnectIHPContract()
+	// contract.GetConnection()
+	// contract.CreateProfile()
+	// contract.GetProfile()
+
+	contract.ConnectDoctorContract()
+	contract.GetDoctorConnection()
+	contract.CreateDoctorProfile(123456, "Doctor123", "doctor@test.com")
+	contract.GetDoctorProfile(123456)
+
 	// initializers.ConnectIPFS()
 }
 

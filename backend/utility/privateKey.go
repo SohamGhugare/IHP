@@ -12,6 +12,14 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
+func GetPrivateKey(client *ethclient.Client, addr string) *ecdsa.PrivateKey {
+	privateKey, err := crypto.HexToECDSA(addr)
+	if err != nil {
+		log.Fatal("failed to convert to ecdsa: ", err)
+	}
+	return privateKey
+}
+
 func GetAccountAuth(client *ethclient.Client, addr string) *bind.TransactOpts {
 	privateKey, err := crypto.HexToECDSA(addr)
 	if err != nil {
