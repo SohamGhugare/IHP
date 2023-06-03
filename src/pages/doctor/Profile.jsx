@@ -4,9 +4,6 @@ import Banner from '../../components/Doctor/Banner'
 import Searchbar from '../../components/Doctor/Searchbar'
 import About from '../../components/Doctor/About'
 import { BsQrCodeScan } from "react-icons/bs";
-import Fab from '@mui/material/Fab';
-
-
 
 const Profile = () => {
   return (
